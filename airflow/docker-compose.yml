@@ -15,6 +15,7 @@ x-airflow-common:
   volumes:
     - ./dags:/opt/airflow/dags
     - ./logs:/opt/airflow/logs
+    - ./html:/opt/airflow/html
 
 services:
   postgres:
@@ -41,6 +42,14 @@ services:
     <<: *airflow-common
     command: scheduler
     restart: always
+  
+  fahpin:
+    image: fahpin/nginx-fahpin:v2
+    ports: 
+      - "9900:80"
+    volumes:
+      - ./html:/usr/share/nginx/html/
+
 
 volumes:
   postgres-db-volume:
