@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+    fahpin:
+        image: fahpin/nginx-fahpin:v2
+        build: 
+            context: .
+            dockerfile: Dockerfile
+        ports: 
+            - "9900:80"
