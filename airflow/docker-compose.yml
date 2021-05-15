@@ -1,0 +1,24 @@
+# docker-compose.yml
+
+version: '3'
+
+x-airflow-common:
+  &airflow-common
+  image: fahpin/my-airflow:v1
+  build: 
+    context: .
+    dockerfile: Dockerfile
+  volumes:
+    - ./dags:/opt/airflow/dags
+
+services:
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    ports:
+      - 8080:8080
+
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    restart: always
